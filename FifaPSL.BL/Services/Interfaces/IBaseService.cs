@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FifaPSL.DAL.Entities
+namespace FifaPSL.BL.Services.Interfaces
 {
-    class User
+    interface IBaseService
     {
     }
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="91ef70d91650432c987829a5ace4a870" Name="Diagram1" ZoomLevel="133">
+        <EntityTypeShape EntityType="fifaModel.group" Width="1.5" PointX="10.125" PointY="6.625" />
+        <EntityTypeShape EntityType="fifaModel.match" Width="1.5" PointX="10.125" PointY="3" />
+        <EntityTypeShape EntityType="fifaModel.match_type" Width="1.5" PointX="7.875" PointY="0.5" />
+        <EntityTypeShape EntityType="fifaModel.match_user" Width="1.5" PointX="12.375" PointY="2.875" />
+        <EntityTypeShape EntityType="fifaModel.tournament" Width="1.5" PointX="7.875" PointY="3.25" />
+        <EntityTypeShape EntityType="fifaModel.user" Width="1.5" PointX="14.875" PointY="6.625" />
+        <EntityTypeShape EntityType="fifaModel.user_group" Width="1.5" PointX="12.375" PointY="6.625" />
+        <AssociationConnector Association="fifaModel.FK_group_tournament" />
+        <AssociationConnector Association="fifaModel.FK_user_group_group" />
+        <AssociationConnector Association="fifaModel.FK_match_match_type" />
+        <AssociationConnector Association="fifaModel.FK_match_tournament" />
+        <AssociationConnector Association="fifaModel.FK_match_user_match" />
+        <AssociationConnector Association="fifaModel.FK_match_user_user" />
+        <AssociationConnector Association="fifaModel.FK_user_group_user" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

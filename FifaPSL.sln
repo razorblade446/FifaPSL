@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FifaPSL.WebApi", "FifaPSL.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FifaPSL.DAL", "FifaPSL.DAL\FifaPSL.DAL.csproj", "{F06E80FC-2B01-4FCF-BF6A-21037D3352C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FifaPSL.BL", "FifaPSL.BL\FifaPSL.BL.csproj", "{C1F0644B-FF28-4647-8876-A7AFBE72A05B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FifaPSL.Common", "FifaPSL.Common\FifaPSL.Common.csproj", "{134A1625-29C8-4DCB-AFD2-47FB10FCB75F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,8 +25,19 @@ Global
 		{F06E80FC-2B01-4FCF-BF6A-21037D3352C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F06E80FC-2B01-4FCF-BF6A-21037D3352C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F06E80FC-2B01-4FCF-BF6A-21037D3352C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1F0644B-FF28-4647-8876-A7AFBE72A05B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1F0644B-FF28-4647-8876-A7AFBE72A05B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1F0644B-FF28-4647-8876-A7AFBE72A05B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1F0644B-FF28-4647-8876-A7AFBE72A05B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{134A1625-29C8-4DCB-AFD2-47FB10FCB75F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{134A1625-29C8-4DCB-AFD2-47FB10FCB75F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{134A1625-29C8-4DCB-AFD2-47FB10FCB75F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{134A1625-29C8-4DCB-AFD2-47FB10FCB75F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45
 	EndGlobalSection
 EndGlobal

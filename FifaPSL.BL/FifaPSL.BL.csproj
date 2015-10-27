@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F06E80FC-2B01-4FCF-BF6A-21037D3352C8}</ProjectGuid>
+    <ProjectGuid>{C1F0644B-FF28-4647-8876-A7AFBE72A05B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FifaPSL.DAL</RootNamespace>
-    <AssemblyName>FifaPSL.DAL</AssemblyName>
+    <RootNamespace>FifaPSL.BL</RootNamespace>
+    <AssemblyName>FifaPSL.BL</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,14 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
@@ -55,10 +47,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -67,73 +56,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FifaDataModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FifaDataModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="FifaDataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FifaDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="FifaDataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FifaDataModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="group.cs">
-      <DependentUpon>FifaDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="match.cs">
-      <DependentUpon>FifaDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="match_type.cs">
-      <DependentUpon>FifaDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="match_user.cs">
-      <DependentUpon>FifaDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Factory.cs" />
-    <Compile Include="Repositories\Implementation\FifaRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IFifaRepository.cs" />
-    <Compile Include="tournament.cs">
-      <DependentUpon>FifaDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="user.cs">
-      <DependentUpon>FifaDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="user_group.cs">
-      <DependentUpon>FifaDataModel.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <EntityDeploy Include="FifaDataModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>FifaDataModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="FifaDataModel.edmx.diagram">
-      <DependentUpon>FifaDataModel.edmx</DependentUpon>
-    </None>
-    <None Include="packages.config" />
+    <Compile Include="Services\Implementation\ServiceFactory.cs" />
+    <Compile Include="Services\Interfaces\IBaseService.cs" />
+    <Compile Include="Services\Interfaces\IServiceFactory.cs" />
+    <Compile Include="Services\Implementation\TournamentService.cs" />
+    <Compile Include="Services\Implementation\BaseService.cs" />
+    <Compile Include="Services\Interfaces\ITournamentService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="FifaDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FifaDataModel.edmx</DependentUpon>
-      <LastGenOutput>FifaDataModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="FifaDataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FifaDataModel.edmx</DependentUpon>
-      <LastGenOutput>FifaDataModel.cs</LastGenOutput>
-    </Content>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <ProjectReference Include="..\FifaPSL.Common\FifaPSL.Common.csproj">
+      <Project>{134a1625-29c8-4dcb-afd2-47fb10fcb75f}</Project>
+      <Name>FifaPSL.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FifaPSL.DAL\FifaPSL.DAL.csproj">
+      <Project>{f06e80fc-2b01-4fcf-bf6a-21037d3352c8}</Project>
+      <Name>FifaPSL.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
