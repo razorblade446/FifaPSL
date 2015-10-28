@@ -16,7 +16,7 @@ namespace FifaPSL.DAL.Repositories.Implementation
             _dbContext = new FifaDataSource();
         }
 
-        public tournament[] GetAllTournaments()
+        public tournament[] GetTournaments()
         {
             var tournamentsQuery = from t in _dbContext.tournament
                                    orderby t.tournament_id
@@ -32,12 +32,42 @@ namespace FifaPSL.DAL.Repositories.Implementation
 
         public tournament GetTournament(int tournamentId)
         {
-            var tournamentIdCompare = new byte[] { (byte)tournamentId };
-
             var myTournament = _dbContext.tournament.First(t => t.tournament_id == (byte)tournamentId);
 
             return myTournament;
 
+        }
+
+        public group[] GetGroups()
+        {
+            var groupsQuery = from g in _dbContext.@group
+                              orderby g.tournament_id, g.group_id
+                              select g;
+
+            group[] groups = new group[groupsQuery.Count<group>()];
+            int i = 0;
+            foreach (group item in groupsQuery) {
+                groups[i] = item;
+                i++;
+            }
+
+            return groups;
+
+        }
+
+        public group[] GetGroupsByTournamentId(int tournamentId)
+        {
+            var groupsQuery = _dbContext.group.Where(g => g.tournament_id == (byte)tournamentId);
+
+            return groupsQuery.ToArray();
+
+        }
+
+        public group GetGroup(int groupId)
+        {
+            var myGroup = _dbContext.group.First(g => g.group_id == groupId);
+
+            return myGroup;
         }
     }
 }

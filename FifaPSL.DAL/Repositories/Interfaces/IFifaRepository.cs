@@ -9,8 +9,12 @@ namespace FifaPSL.DAL.Repositories.Interfaces
     public interface IFifaRepository
     {
 
-        tournament[] GetAllTournaments();
-        tournament GetTournament(int tournament_id);
+        tournament[] GetTournaments();
+        tournament GetTournament(int tournamentId);
+
+        group[] GetGroups();
+        group[] GetGroupsByTournamentId(int tournamentId);
+        group GetGroup(int groupId);
 
     }
 }

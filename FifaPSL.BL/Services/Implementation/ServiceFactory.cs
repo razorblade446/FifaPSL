@@ -17,6 +17,7 @@ namespace FifaPSL.BL.Services.Implementation
         public static UnityContainer container;
 
         protected static ITournamentService tournamentService;
+        protected static IGroupService groupService;
 
         public ServiceFactory() {
             if (container == null) {
@@ -24,7 +25,7 @@ namespace FifaPSL.BL.Services.Implementation
 
                 container.RegisterType<ITournamentService, TournamentService>();
                 container.RegisterType<IFifaRepository, FifaRepository>();
-                //container.LoadConfiguration();
+                container.RegisterType<IGroupService, GroupService>();
             }
         }
 
@@ -34,6 +35,14 @@ namespace FifaPSL.BL.Services.Implementation
                 tournamentService = container.Resolve<ITournamentService>();
             }
             return tournamentService;
+        }
+
+        public IGroupService GetGroupService()
+        {
+            if (groupService == null) {
+                groupService = container.Resolve<IGroupService>();
+            }
+            return groupService;
         }
     }
 }

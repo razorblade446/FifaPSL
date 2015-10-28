@@ -18,7 +18,7 @@ namespace FifaPSL.BL.Services.Implementation
 
         public Tournament[] GetAllTournaments()
         {
-            tournament[] myTournaments = fifaRepository.GetAllTournaments();
+            tournament[] myTournaments = fifaRepository.GetTournaments();
 
             Tournament[] response = new Tournament[myTournaments.Length];
 

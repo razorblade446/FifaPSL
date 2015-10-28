@@ -10,13 +10,15 @@ using FifaPSL.BL.Services.Implementation;
 namespace FifaPSL.WebApi.Controllers
 {
 
-    [RoutePrefix("api/tournament")]
+    [RoutePrefix("tournament")]
     public class TournamentController : BaseController
     {
 
         protected static TournamentService tournamentService;
 
+#pragma warning disable 1591
         public TournamentController(){
+#pragma warning restore 1591
             tournamentService = (TournamentService) serviceFactory.GetTournamentService();
         } 
 
@@ -26,9 +28,16 @@ namespace FifaPSL.WebApi.Controllers
             return tournamentService.GetAllTournaments();
         }
 
-        //[Route("{tournamentId:int}")]
-        //public Tournament GetTournament(int tournamentId) {
-            
-        //}
+        [Route("{tournamentId:int}")]
+        public Tournament GetTournament(int tournamentId) {
+
+            Tournament myTournament = tournamentService.GetTournament(tournamentId);
+
+            if (myTournament == null) {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            return myTournament;
+        }
     }
 }
