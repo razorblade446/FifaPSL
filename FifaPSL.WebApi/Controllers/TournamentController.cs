@@ -22,7 +22,7 @@ namespace FifaPSL.WebApi.Controllers
             tournamentService = (TournamentService) serviceFactory.GetTournamentService();
         } 
 
-        [Route("all")]
+        [Route("")]
         public IEnumerable<Tournament> GetTournaments()
         {
             return tournamentService.GetAllTournaments();
