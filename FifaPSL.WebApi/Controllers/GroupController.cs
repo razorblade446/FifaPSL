@@ -24,18 +24,6 @@ namespace FifaPSL.WebApi.Controllers
 
 
         /// <summary>
-        /// Get all Groups
-        /// </summary>
-        /// <returns>List of Groups</returns>
-        [HttpGet]
-        [Route("all")]
-        public IEnumerable<Group> GetGroups()
-        {
-            throw new NotImplementedException();
-        }
-
-
-        /// <summary>
         /// Get Group
         /// </summary>
         /// <param name="groupId">Group ID</param>
@@ -46,13 +34,6 @@ namespace FifaPSL.WebApi.Controllers
         {
             throw new NotImplementedException();
         }
-
-
-        [HttpGet]
-        [Route("tournament/{tournamentId:int}")]
-        public IEnumerable<Group> GetGroupsByTournament(int tournamentId)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
