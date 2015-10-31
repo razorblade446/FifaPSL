@@ -10,7 +10,9 @@ namespace FifaPSL.BL.Services.Interfaces
     public interface IGroupService
     {
 
-        Group[] GetGroups();
+        Group[] getGroups();
+
+        Group getGroup(int groupId);
 
     }
 }

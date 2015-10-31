@@ -19,7 +19,7 @@ namespace FifaPSL.WebApi.Controllers
         public GroupController()
 #pragma warning restore 1591
         {
-            groupService = (GroupService) serviceFactory.GetGroupService();
+            groupService = ServiceFactory.GetService<GroupService>();
         }
 
 

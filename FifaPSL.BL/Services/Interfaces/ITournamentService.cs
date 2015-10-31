@@ -9,8 +9,10 @@ namespace FifaPSL.BL.Services.Interfaces
 {
     public interface ITournamentService
     {
-        Tournament[] GetAllTournaments();
+        Tournament[] getAllTournaments();
 
-        Tournament GetTournament(int tournamentId);
+        Tournament getTournament(int tournamentId);
+
+        Group[] getTournamentGroups(int tournamentId);
     }
 }

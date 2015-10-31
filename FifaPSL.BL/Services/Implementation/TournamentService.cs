@@ -7,18 +7,33 @@ using FifaPSL.BL.Services.Interfaces;
 using FifaPSL.DAL.Repositories.Interfaces;
 using FifaPSL.Common.Models;
 using FifaPSL.DAL;
+using Microsoft.Practices.Unity;
 
 namespace FifaPSL.BL.Services.Implementation
 {
     public class TournamentService : BaseService, ITournamentService
     {
 
-        public TournamentService(IFifaRepository _fifaRepository) : base(_fifaRepository) {
+        protected ITournamentRepository _tournamentRepository;
+        protected IGroupRepository _groupRepository;
+
+        [Dependency]
+        public ITournamentRepository tournamentRepository
+        {
+            get { return _tournamentRepository; }
+            set { _tournamentRepository = value; }
         }
 
-        public Tournament[] GetAllTournaments()
+        [Dependency]
+        public IGroupRepository groupRepository
         {
-            tournament[] myTournaments = fifaRepository.GetTournaments();
+            get { return _groupRepository; }
+            set { _groupRepository = value; }
+        }
+
+        public Tournament[] getAllTournaments()
+        {
+            tournament[] myTournaments = _tournamentRepository.getTournaments();
 
             Tournament[] response = new Tournament[myTournaments.Length];
 
@@ -31,9 +46,9 @@ namespace FifaPSL.BL.Services.Implementation
             return response;
         }
 
-        public Tournament GetTournament(int tournamentId)
+        public Tournament getTournament(int tournamentId)
         {
-            tournament myTournamentPrimitive = fifaRepository.GetTournament(tournamentId);
+            tournament myTournamentPrimitive = _tournamentRepository.getTournament(tournamentId);
 
             if(myTournamentPrimitive == null)
             {
@@ -45,6 +60,22 @@ namespace FifaPSL.BL.Services.Implementation
             response.name = myTournamentPrimitive.name;
 
             return response;
+        }
+
+        public Group[] getTournamentGroups(int tournamentId)
+        {
+            int[] groupIds = _groupRepository.getGroupIdsByTournamentId(tournamentId);
+
+            Group[] groups = new Group[groupIds.Length];
+
+            GroupService groupService = ServiceFactory.container.Resolve<GroupService>();
+
+            for (int i = 0; i < groupIds.Length; i++)
+            {
+                groups[i] = groupService.getGroup(groupIds[i]);
+            }
+
+            return groups;
         }
     }
 }

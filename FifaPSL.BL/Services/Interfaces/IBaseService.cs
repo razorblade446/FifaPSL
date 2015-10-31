@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FifaPSL.BL.Services.Interfaces
 {
-    interface IBaseService
+    public interface IBaseService
     {
     }
 }

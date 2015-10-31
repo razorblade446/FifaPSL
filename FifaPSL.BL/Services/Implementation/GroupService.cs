@@ -7,18 +7,25 @@ using FifaPSL.BL.Services.Interfaces;
 using FifaPSL.Common.Models;
 using FifaPSL.DAL.Repositories.Interfaces;
 using FifaPSL.DAL;
+using Microsoft.Practices.Unity;
 
 namespace FifaPSL.BL.Services.Implementation
 {
     public class GroupService: BaseService, IGroupService
     {
 
-        public GroupService(IFifaRepository _fifaRepository) : base(_fifaRepository) {
+        protected IGroupRepository _groupRepository;
+
+        [Dependency]
+        public IGroupRepository groupRepository
+        {
+            get { return _groupRepository; }
+            set { _groupRepository = value; }
         }
 
-        public Group[] GetGroups()
+        public Group[] getGroups()
         {
-            group[] myGroups = fifaRepository.GetGroups();
+            group[] myGroups = _groupRepository.getGroups();
 
             Group[] response = new Group[myGroups.Length];
 
@@ -31,6 +38,23 @@ namespace FifaPSL.BL.Services.Implementation
 
             return response;
             
+        }
+
+        public Group getGroup(int groupId)
+        {
+            @group myGroup = _groupRepository.getGroup(groupId);
+
+            if (myGroup == null)
+            {
+                return null;
+            }
+
+            Group response = new Group();
+            response.tournament_id = myGroup.tournament_id;
+            response.name = myGroup.name;
+            response.id = myGroup.group_id;
+
+            return response;
         }
     }
 }

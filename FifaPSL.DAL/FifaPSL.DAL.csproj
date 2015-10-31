@@ -59,6 +59,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -96,8 +97,12 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Factory.cs" />
-    <Compile Include="Repositories\Implementation\FifaRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IFifaRepository.cs" />
+    <Compile Include="Repositories\Implementation\BaseRepository.cs" />
+    <Compile Include="Repositories\Implementation\GroupRepository.cs" />
+    <Compile Include="Repositories\Implementation\TournamentRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IBaseRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IGroupRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ITournamentRepository.cs" />
     <Compile Include="tournament.cs">
       <DependentUpon>FifaDataModel.tt</DependentUpon>
     </Compile>

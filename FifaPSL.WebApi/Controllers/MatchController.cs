@@ -11,8 +11,6 @@ namespace FifaPSL.WebApi.Controllers
     [RoutePrefix("match")]
     public class MatchController : BaseController
     {
-        public MatchController() {
-        }
 
         /// <summary>
         /// Get Match by ID

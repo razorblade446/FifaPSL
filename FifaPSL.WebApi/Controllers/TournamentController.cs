@@ -19,7 +19,7 @@ namespace FifaPSL.WebApi.Controllers
 #pragma warning disable 1591
         public TournamentController() {
 #pragma warning restore 1591
-            tournamentService = (TournamentService)serviceFactory.GetTournamentService();
+            tournamentService = ServiceFactory.GetService<TournamentService>();
         }
 
 
@@ -30,7 +30,7 @@ namespace FifaPSL.WebApi.Controllers
         [Route("")]
         public IEnumerable<Tournament> GetTournaments()
         {
-            return tournamentService.GetAllTournaments();
+            return tournamentService.getAllTournaments();
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace FifaPSL.WebApi.Controllers
         [Route("{tournamentId:int}")]
         public Tournament GetTournament(int tournamentId) {
 
-            Tournament myTournament = tournamentService.GetTournament(tournamentId);
+            Tournament myTournament = tournamentService.getTournament(tournamentId);
 
             if (myTournament == null) {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -58,8 +58,9 @@ namespace FifaPSL.WebApi.Controllers
         /// <returns></returns>
         [Route("{tournamentId:int}/groups")]
         [HttpGet]
-        public IEnumerable<TournamentGroup> GetTournamentGroups(int tournamentId) {
-            throw new NotImplementedException();
+        public IEnumerable<Group> GetTournamentGroups(int tournamentId)
+        {
+            return tournamentService.getTournamentGroups(tournamentId);
         }
 
 

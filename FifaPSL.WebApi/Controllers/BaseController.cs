@@ -13,20 +13,5 @@ namespace FifaPSL.WebApi.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class BaseController: ApiController
     {
-
-        protected ServiceFactory serviceFactory;
-
-#pragma warning disable 1591
-        public BaseController() {
-#pragma warning restore 1591
-            initFactory();
-        }
-
-        protected void initFactory() {
-            if (serviceFactory == null) {
-                serviceFactory = new ServiceFactory();
-            }
-        }
-
     }
 }

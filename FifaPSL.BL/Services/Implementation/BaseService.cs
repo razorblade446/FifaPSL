@@ -9,12 +9,5 @@ namespace FifaPSL.BL.Services.Interfaces
 {
     public class BaseService: IBaseService
     {
-
-        public IFifaRepository fifaRepository;
-
-        public BaseService(IFifaRepository _fifaRepository) {
-            fifaRepository = _fifaRepository;
-        }
-
     }
 }

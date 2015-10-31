@@ -8,8 +8,5 @@ namespace FifaPSL.BL.Services.Interfaces
 {
     public interface IServiceFactory
     {
-
-        ITournamentService GetTournamentService();
-
     }
 }

@@ -8,6 +8,7 @@ using Microsoft.Practices.Unity.Configuration;
 using FifaPSL.BL.Services.Interfaces;
 using FifaPSL.DAL.Repositories.Interfaces;
 using FifaPSL.DAL.Repositories.Implementation;
+using Microsoft.Practices.Unity.Configuration.ConfigurationHelpers;
 
 namespace FifaPSL.BL.Services.Implementation
 {
@@ -15,34 +16,32 @@ namespace FifaPSL.BL.Services.Implementation
     {
 
         public static UnityContainer container;
+        public static IDictionary<String, IBaseService> _services; 
 
-        protected static ITournamentService tournamentService;
-        protected static IGroupService groupService;
-
-        public ServiceFactory() {
+        public static void initialize() {
             if (container == null) {
                 container = new UnityContainer();
+                _services = new Dictionary<string, IBaseService>();
 
                 container.RegisterType<ITournamentService, TournamentService>();
-                container.RegisterType<IFifaRepository, FifaRepository>();
                 container.RegisterType<IGroupService, GroupService>();
+
+                container.RegisterType<ITournamentRepository, TournamentRepository>();
+                container.RegisterType<IGroupRepository, GroupRepository>();
             }
         }
 
-        public ITournamentService GetTournamentService()
+        public static T GetService<T>()
         {
-            if (tournamentService == null) {
-                tournamentService = container.Resolve<ITournamentService>();
+            string myType = typeof (T).ToString();
+            initialize();
+            if (!_services.ContainsKey(myType))
+            {
+                _services.Add(myType, (IBaseService) container.Resolve<T>());
             }
-            return tournamentService;
+
+            return (T) _services.GetOrNull(myType);
         }
 
-        public IGroupService GetGroupService()
-        {
-            if (groupService == null) {
-                groupService = container.Resolve<IGroupService>();
-            }
-            return groupService;
-        }
     }
 }
