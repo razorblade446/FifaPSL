@@ -8,7 +8,7 @@ namespace FifaPSL.Common.Models
 {
     public class User
     {
-        public int UserId { get; set; }
+        public int id { get; set; }
         public String Name { get; set; }
     }
 }

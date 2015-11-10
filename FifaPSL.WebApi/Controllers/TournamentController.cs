@@ -33,6 +33,17 @@ namespace FifaPSL.WebApi.Controllers
             return tournamentService.getAllTournaments();
         }
 
+
+        /// <summary>
+        /// Get current Tournament
+        /// </summary>
+        /// <returns>Tournament basic data</returns>
+        [Route("current")]
+        public Tournament GetTournamentCurrent()
+        {
+            return tournamentService.getTournamentCurrent();
+        }
+
         /// <summary>
         /// Get Tournament by ID
         /// </summary>
@@ -71,9 +82,9 @@ namespace FifaPSL.WebApi.Controllers
         /// <returns></returns>
         [Route("{tournamentId:int}/matches")]
         [HttpGet]
-        public IEnumerable<Match> GetTournamentMatches(int tournamentId)
+        public IEnumerable<MatchDay> GetTournamentMatches(int tournamentId)
         {
-            throw new NotImplementedException();
+            return tournamentService.getTournamentMatches(tournamentId);
         }
     }
 }

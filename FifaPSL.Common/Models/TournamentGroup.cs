@@ -8,6 +8,6 @@ namespace FifaPSL.Common.Models
 {
     public class TournamentGroup: Group
     {
-        public Player[] players { get; set; }
+        public MatchUser[] MatchUsers { get; set; }
     }
 }

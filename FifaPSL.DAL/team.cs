@@ -12,20 +12,22 @@ namespace FifaPSL.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class user_group
+    public partial class team
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public user_group()
+        public team()
         {
+            this.team_league = new HashSet<team_league>();
             this.team_user_group = new HashSet<team_user_group>();
         }
     
-        public int user_group_id { get; set; }
-        public short group_id { get; set; }
-        public short user_id { get; set; }
+        public short team_id { get; set; }
+        public string name { get; set; }
+        public string flag_code { get; set; }
+        public bool national_team { get; set; }
     
-        public virtual group group { get; set; }
-        public virtual user user { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<team_league> team_league { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<team_user_group> team_user_group { get; set; }
     }

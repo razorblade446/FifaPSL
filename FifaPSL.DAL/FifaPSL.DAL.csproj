@@ -83,7 +83,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FifaDataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="GetMatchesByTournamentId_Result.cs">
+      <DependentUpon>FifaDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="group.cs">
+      <DependentUpon>FifaDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="league.cs">
       <DependentUpon>FifaDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="match.cs">
@@ -103,6 +109,15 @@
     <Compile Include="Repositories\Interfaces\IBaseRepository.cs" />
     <Compile Include="Repositories\Interfaces\IGroupRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITournamentRepository.cs" />
+    <Compile Include="team.cs">
+      <DependentUpon>FifaDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="team_league.cs">
+      <DependentUpon>FifaDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="team_user_group.cs">
+      <DependentUpon>FifaDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tournament.cs">
       <DependentUpon>FifaDataModel.tt</DependentUpon>
     </Compile>

@@ -8,14 +8,9 @@ namespace FifaPSL.Common.Models
 {
     public class Match
     {
-        public int matchId { get; set; }
-        public int matchType { get; set; }
-        public User localPlayer { get; set; }
-        public int localScore { get; set; }
-        public Team localTeam { get; set; }
-        public User visitorPlayer { get; set; }
-        public int visitorScore { get; set; }
-        public Team visitorTeam { get; set; }
+        public int id { get; set; }
+        public DateTime date { get; set; }
         public bool played { get; set; }
+        public IEnumerable<MatchUser> Players { get; set; }
     }
 }

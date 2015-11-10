@@ -58,7 +58,8 @@
   <ItemGroup>
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\Match.cs" />
-    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\MatchDay.cs" />
+    <Compile Include="Models\MatchUser.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\Tournament.cs" />
     <Compile Include="Models\TournamentGroup.cs" />

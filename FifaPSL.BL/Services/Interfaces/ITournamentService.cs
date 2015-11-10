@@ -13,6 +13,10 @@ namespace FifaPSL.BL.Services.Interfaces
 
         Tournament getTournament(int tournamentId);
 
+        Tournament getTournamentCurrent();
+
         Group[] getTournamentGroups(int tournamentId);
+
+        MatchDay[] getTournamentMatches(int tournamentId);
     }
 }

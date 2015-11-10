@@ -12,6 +12,8 @@ namespace FifaPSL.DAL
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class FifaDataSource : DbContext
     {
@@ -33,5 +35,22 @@ namespace FifaPSL.DAL
         public virtual DbSet<tournament> tournament { get; set; }
         public virtual DbSet<user> user { get; set; }
         public virtual DbSet<user_group> user_group { get; set; }
+        public virtual DbSet<league> league { get; set; }
+        public virtual DbSet<team> team { get; set; }
+        public virtual DbSet<team_league> team_league { get; set; }
+        public virtual DbSet<team_user_group> team_user_group { get; set; }
+    
+        public virtual ObjectResult<GetMatchesByTournamentId_Result> GetMatchesByTournamentId(Nullable<byte> tournamentId, Nullable<System.DateTime> startingDate)
+        {
+            var tournamentIdParameter = tournamentId.HasValue ?
+                new ObjectParameter("tournamentId", tournamentId) :
+                new ObjectParameter("tournamentId", typeof(byte));
+    
+            var startingDateParameter = startingDate.HasValue ?
+                new ObjectParameter("startingDate", startingDate) :
+                new ObjectParameter("startingDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetMatchesByTournamentId_Result>("GetMatchesByTournamentId", tournamentIdParameter, startingDateParameter);
+        }
     }
 }
