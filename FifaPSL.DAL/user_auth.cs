@@ -12,20 +12,13 @@ namespace FifaPSL.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class match_user
+    public partial class user_auth
     {
-        public int match_user_id { get; set; }
-        public int match_id { get; set; }
+        public byte user_auth_id { get; set; }
         public short user_id { get; set; }
-        public bool local { get; set; }
-        public Nullable<short> team_id { get; set; }
-        public byte score { get; set; }
-        public bool win { get; set; }
-        public bool walk_over { get; set; }
-        public Nullable<byte> yellow_cards { get; set; }
-        public Nullable<byte> red_cards { get; set; }
+        public string token { get; set; }
+        public System.DateTime issued { get; set; }
     
-        public virtual match match { get; set; }
         public virtual user user { get; set; }
     }
 }

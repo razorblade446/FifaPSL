@@ -19,6 +19,7 @@ namespace FifaPSL.DAL
         {
             this.match_user = new HashSet<match_user>();
             this.user_group = new HashSet<user_group>();
+            this.user_auth = new HashSet<user_auth>();
         }
     
         public short user_id { get; set; }
@@ -26,10 +27,14 @@ namespace FifaPSL.DAL
         public string name { get; set; }
         public string psn { get; set; }
         public string gamertag { get; set; }
+        public string salt { get; set; }
+        public string password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<match_user> match_user { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<user_group> user_group { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<user_auth> user_auth { get; set; }
     }
 }

@@ -48,6 +48,8 @@
           <Property Name="local" Type="bit" Nullable="false" />
           <Property Name="team_id" Type="smallint" />
           <Property Name="score" Type="tinyint" Nullable="false" />
+          <Property Name="yellow_cards" Type="tinyint" />
+          <Property Name="red_cards" Type="tinyint" />
           <Property Name="win" Type="bit" Nullable="false" />
           <Property Name="walk_over" Type="bit" Nullable="false" />
         </EntityType>
@@ -93,7 +95,18 @@
           <Property Name="psl_id" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="psn" Type="nvarchar" MaxLength="30" />
+          <Property Name="salt" Type="nvarchar" MaxLength="32" />
+          <Property Name="password" Type="nvarchar" MaxLength="32" />
           <Property Name="gamertag" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="user_auth">
+          <Key>
+            <PropertyRef Name="user_auth_id" />
+          </Key>
+          <Property Name="user_auth_id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="smallint" Nullable="false" />
+          <Property Name="token" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="issued" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="user_group">
           <Key>
@@ -211,6 +224,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_user_auth_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_auth" Type="Self.user_auth" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="user_auth">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_user_group_group">
           <End Role="group" Type="Self.group" Multiplicity="1" />
           <End Role="user_group" Type="Self.user_group" Multiplicity="*" />
@@ -250,6 +275,7 @@
           <EntitySet Name="team_user_group" EntityType="Self.team_user_group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tournament" EntityType="Self.tournament" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_auth" EntityType="Self.user_auth" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_group" EntityType="Self.user_group" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_group_tournament" Association="Self.FK_group_tournament">
             <End Role="tournament" EntitySet="tournament" />
@@ -286,6 +312,10 @@
           <AssociationSet Name="FK_team_user_group_user_group" Association="Self.FK_team_user_group_user_group">
             <End Role="user_group" EntitySet="user_group" />
             <End Role="team_user_group" EntitySet="team_user_group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_auth_user" Association="Self.FK_user_auth_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_auth" EntitySet="user_auth" />
           </AssociationSet>
           <AssociationSet Name="FK_user_group_group" Association="Self.FK_user_group_group">
             <End Role="group" EntitySet="group" />
@@ -360,6 +390,11 @@
             <Parameter Name="tournamentId" Mode="In" Type="Byte" />
             <Parameter Name="startingDate" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <EntitySet Name="user_auth" EntityType="fifaModel.user_auth" />
+          <AssociationSet Name="FK_user_auth_user" Association="fifaModel.FK_user_auth_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_auth" EntitySet="user_auth" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="group">
           <Key>
@@ -406,6 +441,8 @@
           <Property Name="walk_over" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="match" Relationship="fifaModel.FK_match_user_match" FromRole="match_user" ToRole="match" />
           <NavigationProperty Name="user" Relationship="fifaModel.FK_match_user_user" FromRole="match_user" ToRole="user" />
+          <Property Name="yellow_cards" Type="Byte" />
+          <Property Name="red_cards" Type="Byte" />
         </EntityType>
         <EntityType Name="tournament">
           <Key>
@@ -429,6 +466,9 @@
           <Property Name="gamertag" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="match_user" Relationship="fifaModel.FK_match_user_user" FromRole="user" ToRole="match_user" />
           <NavigationProperty Name="user_group" Relationship="fifaModel.FK_user_group_user" FromRole="user" ToRole="user_group" />
+          <Property Name="salt" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="user_auth" Relationship="fifaModel.FK_user_auth_user" FromRole="user" ToRole="user_auth" />
         </EntityType>
         <EntityType Name="user_group">
           <Key>
@@ -625,6 +665,28 @@
           <Property Type="Boolean" Name="local" Nullable="false" />
           <Property Type="Boolean" Name="walk_over" Nullable="false" />
         </ComplexType>
+        <EntityType Name="user_auth">
+          <Key>
+            <PropertyRef Name="user_auth_id" />
+          </Key>
+          <Property Name="user_auth_id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int16" Nullable="false" />
+          <Property Name="token" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="issued" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="user" Relationship="fifaModel.FK_user_auth_user" FromRole="user_auth" ToRole="user" />
+        </EntityType>
+        <Association Name="FK_user_auth_user">
+          <End Type="fifaModel.user" Role="user" Multiplicity="1" />
+          <End Type="fifaModel.user_auth" Role="user_auth" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="user_auth">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -662,6 +724,8 @@
           <EntitySetMapping Name="match_user">
             <EntityTypeMapping TypeName="fifaModel.match_user">
               <MappingFragment StoreEntitySet="match_user">
+                <ScalarProperty Name="red_cards" ColumnName="red_cards" />
+                <ScalarProperty Name="yellow_cards" ColumnName="yellow_cards" />
                 <ScalarProperty Name="walk_over" ColumnName="walk_over" />
                 <ScalarProperty Name="win" ColumnName="win" />
                 <ScalarProperty Name="score" ColumnName="score" />
@@ -686,6 +750,8 @@
           <EntitySetMapping Name="user">
             <EntityTypeMapping TypeName="fifaModel.user">
               <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="salt" ColumnName="salt" />
                 <ScalarProperty Name="gamertag" ColumnName="gamertag" />
                 <ScalarProperty Name="psn" ColumnName="psn" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -754,6 +820,16 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="user_auth">
+            <EntityTypeMapping TypeName="fifaModel.user_auth">
+              <MappingFragment StoreEntitySet="user_auth">
+                <ScalarProperty Name="issued" ColumnName="issued" />
+                <ScalarProperty Name="token" ColumnName="token" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="user_auth_id" ColumnName="user_auth_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

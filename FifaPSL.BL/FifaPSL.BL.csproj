@@ -61,6 +61,7 @@
     <Compile Include="Services\Implementation\ServiceFactory.cs" />
     <Compile Include="Services\Interfaces\IBaseService.cs" />
     <Compile Include="Services\Interfaces\IGroupService.cs" />
+    <Compile Include="Services\Interfaces\ISecurityService.cs" />
     <Compile Include="Services\Interfaces\IServiceFactory.cs" />
     <Compile Include="Services\Implementation\TournamentService.cs" />
     <Compile Include="Services\Implementation\BaseService.cs" />

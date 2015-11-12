@@ -39,6 +39,7 @@ namespace FifaPSL.DAL
         public virtual DbSet<team> team { get; set; }
         public virtual DbSet<team_league> team_league { get; set; }
         public virtual DbSet<team_user_group> team_user_group { get; set; }
+        public virtual DbSet<user_auth> user_auth { get; set; }
     
         public virtual ObjectResult<GetMatchesByTournamentId_Result> GetMatchesByTournamentId(Nullable<byte> tournamentId, Nullable<System.DateTime> startingDate)
         {

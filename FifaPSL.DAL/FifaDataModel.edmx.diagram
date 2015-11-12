@@ -27,6 +27,8 @@
         <AssociationConnector Association="fifaModel.FK_team_league_team" />
         <AssociationConnector Association="fifaModel.FK_team_user_group_team" />
         <AssociationConnector Association="fifaModel.FK_team_user_group_user_group" />
+        <EntityTypeShape EntityType="fifaModel.user_auth" Width="1.5" PointX="17.5" PointY="8.125" />
+        <AssociationConnector Association="fifaModel.FK_user_auth_user" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

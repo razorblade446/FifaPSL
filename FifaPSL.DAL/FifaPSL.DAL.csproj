@@ -113,9 +113,11 @@
     <Compile Include="Repositories\Factory.cs" />
     <Compile Include="Repositories\Implementation\BaseRepository.cs" />
     <Compile Include="Repositories\Implementation\GroupRepository.cs" />
+    <Compile Include="Repositories\Implementation\SecurityRepository.cs" />
     <Compile Include="Repositories\Implementation\TournamentRepository.cs" />
     <Compile Include="Repositories\Interfaces\IBaseRepository.cs" />
     <Compile Include="Repositories\Interfaces\IGroupRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ISecurityRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITournamentRepository.cs" />
     <Compile Include="team.cs">
       <DependentUpon>FifaDataModel.tt</DependentUpon>
@@ -130,6 +132,9 @@
       <DependentUpon>FifaDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="user.cs">
+      <DependentUpon>FifaDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="user_auth.cs">
       <DependentUpon>FifaDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="user_group.cs">
