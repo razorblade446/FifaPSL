@@ -4,31 +4,31 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="91ef70d91650432c987829a5ace4a870" Name="Diagram1" ZoomLevel="64">
-        <EntityTypeShape EntityType="fifaModel.group" Width="1.5" PointX="10.125" PointY="6.625" />
-        <EntityTypeShape EntityType="fifaModel.match" Width="1.5" PointX="10.125" PointY="3" />
-        <EntityTypeShape EntityType="fifaModel.match_type" Width="1.5" PointX="7.875" PointY="0.5" />
-        <EntityTypeShape EntityType="fifaModel.match_user" Width="1.5" PointX="12.375" PointY="2.875" />
-        <EntityTypeShape EntityType="fifaModel.tournament" Width="1.5" PointX="7.875" PointY="3.25" />
-        <EntityTypeShape EntityType="fifaModel.user" Width="1.5" PointX="14.875" PointY="6.625" />
-        <EntityTypeShape EntityType="fifaModel.user_group" Width="1.5" PointX="12.375" PointY="6.625" />
-        <AssociationConnector Association="fifaModel.FK_group_tournament" />
-        <AssociationConnector Association="fifaModel.FK_user_group_group" />
-        <AssociationConnector Association="fifaModel.FK_match_match_type" />
-        <AssociationConnector Association="fifaModel.FK_match_tournament" />
-        <AssociationConnector Association="fifaModel.FK_match_user_match" />
-        <AssociationConnector Association="fifaModel.FK_match_user_user" />
-        <AssociationConnector Association="fifaModel.FK_user_group_user" />
-        <EntityTypeShape EntityType="fifaModel.league" Width="1.5" PointX="12.375" PointY="11.375" />
-        <EntityTypeShape EntityType="fifaModel.team" Width="1.5" PointX="17.75" PointY="1.125" />
-        <EntityTypeShape EntityType="fifaModel.team_league" Width="1.5" PointX="14.625" PointY="0.875" />
-        <EntityTypeShape EntityType="fifaModel.team_user_group" Width="1.5" PointX="17.875" PointY="4.625" />
-        <AssociationConnector Association="fifaModel.FK_team_league_league" />
-        <AssociationConnector Association="fifaModel.FK_team_league_team" />
-        <AssociationConnector Association="fifaModel.FK_team_user_group_team" />
-        <AssociationConnector Association="fifaModel.FK_team_user_group_user_group" />
-        <EntityTypeShape EntityType="fifaModel.user_auth" Width="1.5" PointX="17.5" PointY="8.125" />
-        <AssociationConnector Association="fifaModel.FK_user_auth_user" />
+      <Diagram DiagramId="7d27ccc1a7a64ac8a3f63c00d8bb73bd" Name="Diagram1">
+        <EntityTypeShape EntityType="FifaDataModel.group" Width="1.5" PointX="3.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaDataModel.league" Width="1.5" PointX="6" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaDataModel.match" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaDataModel.match_type" Width="1.5" PointX="1.5" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaDataModel.match_user" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaDataModel.team" Width="1.5" PointX="6" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaDataModel.team_league" Width="1.5" PointX="8.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaDataModel.team_user_group" Width="1.5" PointX="8.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaDataModel.tournament" Width="1.5" PointX="1.5" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaDataModel.user" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaDataModel.user_auth" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaDataModel.user_group" Width="1.5" PointX="6" PointY="6" IsExpanded="true" />
+        <AssociationConnector Association="FifaDataModel.FK_group_tournament" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaDataModel.FK_user_group_group" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaDataModel.FK_team_league_league" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaDataModel.FK_match_match_type" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaDataModel.FK_match_tournament" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaDataModel.FK_match_user_match" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaDataModel.FK_match_user_user" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaDataModel.FK_team_league_team" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaDataModel.FK_team_user_group_team" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaDataModel.FK_team_user_group_user_group" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaDataModel.FK_user_auth_user" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaDataModel.FK_user_group_user" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

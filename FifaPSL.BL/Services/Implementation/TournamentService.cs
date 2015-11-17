@@ -147,7 +147,7 @@ namespace FifaPSL.BL.Services.Implementation
 
                     MatchUser player = new MatchUser();
                     player.id = matchPartial.user_id;
-                    player.Name = matchPartial.name;
+                    player.name = matchPartial.name;
                     player.local = matchPartial.local;
                     player.teamName = matchPartial.team_name;
                     player.teamFlag = matchPartial.team_flag;

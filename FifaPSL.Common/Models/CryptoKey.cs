@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace FifaPSL.Common.Models
 {
-    public class User
+    public class CryptoKey
     {
-        public int id { get; set; }
-        public String name { get; set; }
+        public string Salt { get; set; }
+        public string Hash { get; set; }
     }
 }

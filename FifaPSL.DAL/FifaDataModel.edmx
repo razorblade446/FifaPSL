@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="fifaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="FifaDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="group">
           <Key>
             <PropertyRef Name="group_id" />
@@ -95,8 +95,8 @@
           <Property Name="psl_id" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="psn" Type="nvarchar" MaxLength="30" />
-          <Property Name="salt" Type="nvarchar" MaxLength="32" />
-          <Property Name="password" Type="nvarchar" MaxLength="32" />
+          <Property Name="salt" Type="nvarchar" MaxLength="64" />
+          <Property Name="password" Type="nvarchar" MaxLength="64" />
           <Property Name="gamertag" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="user_auth">
@@ -105,7 +105,7 @@
           </Key>
           <Property Name="user_auth_id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="user_id" Type="smallint" Nullable="false" />
-          <Property Name="token" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="token" Type="nvarchar" MaxLength="64" Nullable="false" />
           <Property Name="issued" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="user_group">
@@ -264,7 +264,7 @@
           <Parameter Name="tournamentId" Type="tinyint" Mode="In" />
           <Parameter Name="startingDate" Type="date" Mode="In" />
         </Function>
-        <EntityContainer Name="fifaModelStoreContainer">
+        <EntityContainer Name="FifaDataModelStoreContainer">
           <EntitySet Name="group" EntityType="Self.group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="league" EntityType="Self.league" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="match" EntityType="Self.match" Schema="dbo" store:Type="Tables" />
@@ -326,164 +326,149 @@
             <End Role="user_group" EntitySet="user_group" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="fifaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="FifaDataSource" annotation:LazyLoadingEnabled="false">
-          <EntitySet Name="group" EntityType="fifaModel.group" />
-          <EntitySet Name="match" EntityType="fifaModel.match" />
-          <EntitySet Name="match_type" EntityType="fifaModel.match_type" />
-          <EntitySet Name="match_user" EntityType="fifaModel.match_user" />
-          <EntitySet Name="tournament" EntityType="fifaModel.tournament" />
-          <EntitySet Name="user" EntityType="fifaModel.user" />
-          <EntitySet Name="user_group" EntityType="fifaModel.user_group" />
-          <AssociationSet Name="FK_group_tournament" Association="fifaModel.FK_group_tournament">
-            <End Role="tournament" EntitySet="tournament" />
-            <End Role="group" EntitySet="group" />
-          </AssociationSet>
-          <AssociationSet Name="FK_user_group_group" Association="fifaModel.FK_user_group_group">
-            <End Role="group" EntitySet="group" />
-            <End Role="user_group" EntitySet="user_group" />
-          </AssociationSet>
-          <AssociationSet Name="FK_match_match_type" Association="fifaModel.FK_match_match_type">
-            <End Role="match_type" EntitySet="match_type" />
-            <End Role="match" EntitySet="match" />
-          </AssociationSet>
-          <AssociationSet Name="FK_match_tournament" Association="fifaModel.FK_match_tournament">
-            <End Role="tournament" EntitySet="tournament" />
-            <End Role="match" EntitySet="match" />
-          </AssociationSet>
-          <AssociationSet Name="FK_match_user_match" Association="fifaModel.FK_match_user_match">
-            <End Role="match" EntitySet="match" />
-            <End Role="match_user" EntitySet="match_user" />
-          </AssociationSet>
-          <AssociationSet Name="FK_match_user_user" Association="fifaModel.FK_match_user_user">
-            <End Role="user" EntitySet="user" />
-            <End Role="match_user" EntitySet="match_user" />
-          </AssociationSet>
-          <AssociationSet Name="FK_user_group_user" Association="fifaModel.FK_user_group_user">
-            <End Role="user" EntitySet="user" />
-            <End Role="user_group" EntitySet="user_group" />
-          </AssociationSet>
-          <EntitySet Name="league" EntityType="fifaModel.league" />
-          <EntitySet Name="team" EntityType="fifaModel.team" />
-          <EntitySet Name="team_league" EntityType="fifaModel.team_league" />
-          <EntitySet Name="team_user_group" EntityType="fifaModel.team_user_group" />
-          <AssociationSet Name="FK_team_league_league" Association="fifaModel.FK_team_league_league">
-            <End Role="league" EntitySet="league" />
-            <End Role="team_league" EntitySet="team_league" />
-          </AssociationSet>
-          <AssociationSet Name="FK_team_league_team" Association="fifaModel.FK_team_league_team">
-            <End Role="team" EntitySet="team" />
-            <End Role="team_league" EntitySet="team_league" />
-          </AssociationSet>
-          <AssociationSet Name="FK_team_user_group_team" Association="fifaModel.FK_team_user_group_team">
-            <End Role="team" EntitySet="team" />
-            <End Role="team_user_group" EntitySet="team_user_group" />
-          </AssociationSet>
-          <AssociationSet Name="FK_team_user_group_user_group" Association="fifaModel.FK_team_user_group_user_group">
-            <End Role="user_group" EntitySet="user_group" />
-            <End Role="team_user_group" EntitySet="team_user_group" />
-          </AssociationSet>
-          <FunctionImport Name="GetMatchesByTournamentId" ReturnType="Collection(fifaModel.GetMatchesByTournamentId_Result)">
-            <Parameter Name="tournamentId" Mode="In" Type="Byte" />
-            <Parameter Name="startingDate" Mode="In" Type="DateTime" />
-          </FunctionImport>
-          <EntitySet Name="user_auth" EntityType="fifaModel.user_auth" />
-          <AssociationSet Name="FK_user_auth_user" Association="fifaModel.FK_user_auth_user">
-            <End Role="user" EntitySet="user" />
-            <End Role="user_auth" EntitySet="user_auth" />
-          </AssociationSet>
-        </EntityContainer>
+      <Schema Namespace="FifaDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="group">
           <Key>
             <PropertyRef Name="group_id" />
           </Key>
-          <Property Name="group_id" Type="Int16" Nullable="false" />
+          <Property Name="group_id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="tournament_id" Type="Byte" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tournament" Relationship="fifaModel.FK_group_tournament" FromRole="group" ToRole="tournament" />
-          <NavigationProperty Name="user_group" Relationship="fifaModel.FK_user_group_group" FromRole="group" ToRole="user_group" />
+          <Property Name="name" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tournament" Relationship="Self.FK_group_tournament" FromRole="group" ToRole="tournament" />
+          <NavigationProperty Name="user_group" Relationship="Self.FK_user_group_group" FromRole="group" ToRole="user_group" />
+        </EntityType>
+        <EntityType Name="league">
+          <Key>
+            <PropertyRef Name="league_id" />
+          </Key>
+          <Property Name="league_id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="country_code" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="team_league" Relationship="Self.FK_team_league_league" FromRole="league" ToRole="team_league" />
         </EntityType>
         <EntityType Name="match">
           <Key>
             <PropertyRef Name="match_id" />
           </Key>
-          <Property Name="match_id" Type="Int32" Nullable="false" />
+          <Property Name="match_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="tournament_id" Type="Byte" Nullable="false" />
           <Property Name="match_type_id" Type="Byte" Nullable="false" />
           <Property Name="played" Type="Boolean" Nullable="false" />
           <Property Name="date_played" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="match_type" Relationship="fifaModel.FK_match_match_type" FromRole="match" ToRole="match_type" />
-          <NavigationProperty Name="tournament" Relationship="fifaModel.FK_match_tournament" FromRole="match" ToRole="tournament" />
-          <NavigationProperty Name="match_user" Relationship="fifaModel.FK_match_user_match" FromRole="match" ToRole="match_user" />
+          <NavigationProperty Name="match_type" Relationship="Self.FK_match_match_type" FromRole="match" ToRole="match_type" />
+          <NavigationProperty Name="tournament" Relationship="Self.FK_match_tournament" FromRole="match" ToRole="tournament" />
+          <NavigationProperty Name="match_user" Relationship="Self.FK_match_user_match" FromRole="match" ToRole="match_user" />
         </EntityType>
         <EntityType Name="match_type">
           <Key>
             <PropertyRef Name="match_type_id" />
           </Key>
-          <Property Name="match_type_id" Type="Byte" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="match" Relationship="fifaModel.FK_match_match_type" FromRole="match_type" ToRole="match" />
+          <Property Name="match_type_id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="match" Relationship="Self.FK_match_match_type" FromRole="match_type" ToRole="match" />
         </EntityType>
         <EntityType Name="match_user">
           <Key>
             <PropertyRef Name="match_user_id" />
           </Key>
-          <Property Name="match_user_id" Type="Int32" Nullable="false" />
+          <Property Name="match_user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="match_id" Type="Int32" Nullable="false" />
           <Property Name="user_id" Type="Int16" Nullable="false" />
           <Property Name="local" Type="Boolean" Nullable="false" />
           <Property Name="team_id" Type="Int16" />
           <Property Name="score" Type="Byte" Nullable="false" />
-          <Property Name="win" Type="Boolean" Nullable="false" />
-          <Property Name="walk_over" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="match" Relationship="fifaModel.FK_match_user_match" FromRole="match_user" ToRole="match" />
-          <NavigationProperty Name="user" Relationship="fifaModel.FK_match_user_user" FromRole="match_user" ToRole="user" />
           <Property Name="yellow_cards" Type="Byte" />
           <Property Name="red_cards" Type="Byte" />
+          <Property Name="win" Type="Boolean" Nullable="false" />
+          <Property Name="walk_over" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="match" Relationship="Self.FK_match_user_match" FromRole="match_user" ToRole="match" />
+          <NavigationProperty Name="user" Relationship="Self.FK_match_user_user" FromRole="match_user" ToRole="user" />
+        </EntityType>
+        <EntityType Name="team">
+          <Key>
+            <PropertyRef Name="team_id" />
+          </Key>
+          <Property Name="team_id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="flag_code" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="national_team" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="team_league" Relationship="Self.FK_team_league_team" FromRole="team" ToRole="team_league" />
+          <NavigationProperty Name="team_user_group" Relationship="Self.FK_team_user_group_team" FromRole="team" ToRole="team_user_group" />
+        </EntityType>
+        <EntityType Name="team_league">
+          <Key>
+            <PropertyRef Name="team_league_id" />
+          </Key>
+          <Property Name="team_league_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="team_id" Type="Int16" Nullable="false" />
+          <Property Name="league_id" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="league" Relationship="Self.FK_team_league_league" FromRole="team_league" ToRole="league" />
+          <NavigationProperty Name="team" Relationship="Self.FK_team_league_team" FromRole="team_league" ToRole="team" />
+        </EntityType>
+        <EntityType Name="team_user_group">
+          <Key>
+            <PropertyRef Name="team_user_group_id" />
+          </Key>
+          <Property Name="team_user_group_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_group_id" Type="Int32" Nullable="false" />
+          <Property Name="team_id" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="team" Relationship="Self.FK_team_user_group_team" FromRole="team_user_group" ToRole="team" />
+          <NavigationProperty Name="user_group" Relationship="Self.FK_team_user_group_user_group" FromRole="team_user_group" ToRole="user_group" />
         </EntityType>
         <EntityType Name="tournament">
           <Key>
             <PropertyRef Name="tournament_id" />
           </Key>
-          <Property Name="tournament_id" Type="Byte" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="tournament_id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="start_date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="end_date" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="group" Relationship="fifaModel.FK_group_tournament" FromRole="tournament" ToRole="group" />
-          <NavigationProperty Name="match" Relationship="fifaModel.FK_match_tournament" FromRole="tournament" ToRole="match" />
+          <NavigationProperty Name="group" Relationship="Self.FK_group_tournament" FromRole="tournament" ToRole="group" />
+          <NavigationProperty Name="match" Relationship="Self.FK_match_tournament" FromRole="tournament" ToRole="match" />
         </EntityType>
         <EntityType Name="user">
           <Key>
             <PropertyRef Name="user_id" />
           </Key>
-          <Property Name="user_id" Type="Int16" Nullable="false" />
-          <Property Name="psl_id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="user_id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="psl_id" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="psn" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="salt" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Name="gamertag" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="match_user" Relationship="fifaModel.FK_match_user_user" FromRole="user" ToRole="match_user" />
-          <NavigationProperty Name="user_group" Relationship="fifaModel.FK_user_group_user" FromRole="user" ToRole="user_group" />
-          <Property Name="salt" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
-          <Property Name="password" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="user_auth" Relationship="fifaModel.FK_user_auth_user" FromRole="user" ToRole="user_auth" />
+          <NavigationProperty Name="match_user" Relationship="Self.FK_match_user_user" FromRole="user" ToRole="match_user" />
+          <NavigationProperty Name="user_auth" Relationship="Self.FK_user_auth_user" FromRole="user" ToRole="user_auth" />
+          <NavigationProperty Name="user_group" Relationship="Self.FK_user_group_user" FromRole="user" ToRole="user_group" />
+        </EntityType>
+        <EntityType Name="user_auth">
+          <Key>
+            <PropertyRef Name="user_auth_id" />
+          </Key>
+          <Property Name="user_auth_id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int16" Nullable="false" />
+          <Property Name="token" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="issued" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_auth_user" FromRole="user_auth" ToRole="user" />
         </EntityType>
         <EntityType Name="user_group">
           <Key>
             <PropertyRef Name="user_group_id" />
           </Key>
-          <Property Name="user_group_id" Type="Int32" Nullable="false" />
+          <Property Name="user_group_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="group_id" Type="Int16" Nullable="false" />
           <Property Name="user_id" Type="Int16" Nullable="false" />
-          <NavigationProperty Name="group" Relationship="fifaModel.FK_user_group_group" FromRole="user_group" ToRole="group" />
-          <NavigationProperty Name="user" Relationship="fifaModel.FK_user_group_user" FromRole="user_group" ToRole="user" />
-          <NavigationProperty Name="team_user_group" Relationship="fifaModel.FK_team_user_group_user_group" FromRole="user_group" ToRole="team_user_group" />
+          <NavigationProperty Name="group" Relationship="Self.FK_user_group_group" FromRole="user_group" ToRole="group" />
+          <NavigationProperty Name="team_user_group" Relationship="Self.FK_team_user_group_user_group" FromRole="user_group" ToRole="team_user_group" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_group_user" FromRole="user_group" ToRole="user" />
         </EntityType>
         <Association Name="FK_group_tournament">
-          <End Type="fifaModel.tournament" Role="tournament" Multiplicity="1" />
-          <End Type="fifaModel.group" Role="group" Multiplicity="*" />
+          <End Role="tournament" Type="Self.tournament" Multiplicity="1" />
+          <End Role="group" Type="Self.group" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tournament">
               <PropertyRef Name="tournament_id" />
@@ -494,8 +479,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_user_group_group">
-          <End Type="fifaModel.group" Role="group" Multiplicity="1" />
-          <End Type="fifaModel.user_group" Role="user_group" Multiplicity="*" />
+          <End Role="group" Type="Self.group" Multiplicity="1" />
+          <End Role="user_group" Type="Self.user_group" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="group">
               <PropertyRef Name="group_id" />
@@ -505,9 +490,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_team_league_league">
+          <End Role="league" Type="Self.league" Multiplicity="1" />
+          <End Role="team_league" Type="Self.team_league" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="league">
+              <PropertyRef Name="league_id" />
+            </Principal>
+            <Dependent Role="team_league">
+              <PropertyRef Name="league_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_match_match_type">
-          <End Type="fifaModel.match_type" Role="match_type" Multiplicity="1" />
-          <End Type="fifaModel.match" Role="match" Multiplicity="*" />
+          <End Role="match_type" Type="Self.match_type" Multiplicity="1" />
+          <End Role="match" Type="Self.match" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="match_type">
               <PropertyRef Name="match_type_id" />
@@ -518,8 +515,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_match_tournament">
-          <End Type="fifaModel.tournament" Role="tournament" Multiplicity="1" />
-          <End Type="fifaModel.match" Role="match" Multiplicity="*" />
+          <End Role="tournament" Type="Self.tournament" Multiplicity="1" />
+          <End Role="match" Type="Self.match" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tournament">
               <PropertyRef Name="tournament_id" />
@@ -530,8 +527,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_match_user_match">
-          <End Type="fifaModel.match" Role="match" Multiplicity="1" />
-          <End Type="fifaModel.match_user" Role="match_user" Multiplicity="*" />
+          <End Role="match" Type="Self.match" Multiplicity="1" />
+          <End Role="match_user" Type="Self.match_user" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="match">
               <PropertyRef Name="match_id" />
@@ -542,8 +539,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_match_user_user">
-          <End Type="fifaModel.user" Role="user" Multiplicity="1" />
-          <End Type="fifaModel.match_user" Role="match_user" Multiplicity="*" />
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="match_user" Type="Self.match_user" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="user">
               <PropertyRef Name="user_id" />
@@ -553,73 +550,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_user_group_user">
-          <End Type="fifaModel.user" Role="user" Multiplicity="1" />
-          <End Type="fifaModel.user_group" Role="user_group" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="user">
-              <PropertyRef Name="user_id" />
-            </Principal>
-            <Dependent Role="user_group">
-              <PropertyRef Name="group_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="league">
-          <Key>
-            <PropertyRef Name="league_id" />
-          </Key>
-          <Property Name="league_id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="country_code" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="team_league" Relationship="fifaModel.FK_team_league_league" FromRole="league" ToRole="team_league" />
-        </EntityType>
-        <EntityType Name="team">
-          <Key>
-            <PropertyRef Name="team_id" />
-          </Key>
-          <Property Name="team_id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="flag_code" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="national_team" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="team_league" Relationship="fifaModel.FK_team_league_team" FromRole="team" ToRole="team_league" />
-          <NavigationProperty Name="team_user_group" Relationship="fifaModel.FK_team_user_group_team" FromRole="team" ToRole="team_user_group" />
-        </EntityType>
-        <EntityType Name="team_league">
-          <Key>
-            <PropertyRef Name="team_league_id" />
-          </Key>
-          <Property Name="team_league_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="team_id" Type="Int16" Nullable="false" />
-          <Property Name="league_id" Type="Byte" Nullable="false" />
-          <NavigationProperty Name="league" Relationship="fifaModel.FK_team_league_league" FromRole="team_league" ToRole="league" />
-          <NavigationProperty Name="team" Relationship="fifaModel.FK_team_league_team" FromRole="team_league" ToRole="team" />
-        </EntityType>
-        <EntityType Name="team_user_group">
-          <Key>
-            <PropertyRef Name="team_user_group_id" />
-          </Key>
-          <Property Name="team_user_group_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_group_id" Type="Int32" Nullable="false" />
-          <Property Name="team_id" Type="Int16" Nullable="false" />
-          <NavigationProperty Name="team" Relationship="fifaModel.FK_team_user_group_team" FromRole="team_user_group" ToRole="team" />
-          <NavigationProperty Name="user_group" Relationship="fifaModel.FK_team_user_group_user_group" FromRole="team_user_group" ToRole="user_group" />
-        </EntityType>
-        <Association Name="FK_team_league_league">
-          <End Type="fifaModel.league" Role="league" Multiplicity="1" />
-          <End Type="fifaModel.team_league" Role="team_league" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="league">
-              <PropertyRef Name="league_id" />
-            </Principal>
-            <Dependent Role="team_league">
-              <PropertyRef Name="league_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_team_league_team">
-          <End Type="fifaModel.team" Role="team" Multiplicity="1" />
-          <End Type="fifaModel.team_league" Role="team_league" Multiplicity="*" />
+          <End Role="team" Type="Self.team" Multiplicity="1" />
+          <End Role="team_league" Type="Self.team_league" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="team">
               <PropertyRef Name="team_id" />
@@ -630,8 +563,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_team_user_group_team">
-          <End Type="fifaModel.team" Role="team" Multiplicity="1" />
-          <End Type="fifaModel.team_user_group" Role="team_user_group" Multiplicity="*" />
+          <End Role="team" Type="Self.team" Multiplicity="1" />
+          <End Role="team_user_group" Type="Self.team_user_group" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="team">
               <PropertyRef Name="team_id" />
@@ -642,8 +575,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_team_user_group_user_group">
-          <End Type="fifaModel.user_group" Role="user_group" Multiplicity="1" />
-          <End Type="fifaModel.team_user_group" Role="team_user_group" Multiplicity="*" />
+          <End Role="user_group" Type="Self.user_group" Multiplicity="1" />
+          <End Role="team_user_group" Type="Self.team_user_group" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="user_group">
               <PropertyRef Name="user_group_id" />
@@ -653,31 +586,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="GetMatchesByTournamentId_Result">
-          <Property Type="Int32" Name="match_id" Nullable="false" />
-          <Property Type="DateTime" Name="date_played" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="played" Nullable="false" />
-          <Property Type="Int16" Name="user_id" Nullable="false" />
-          <Property Type="String" Name="name" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="team_name" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="team_flag" Nullable="true" MaxLength="5" />
-          <Property Type="Byte" Name="score" Nullable="false" />
-          <Property Type="Boolean" Name="local" Nullable="false" />
-          <Property Type="Boolean" Name="walk_over" Nullable="false" />
-        </ComplexType>
-        <EntityType Name="user_auth">
-          <Key>
-            <PropertyRef Name="user_auth_id" />
-          </Key>
-          <Property Name="user_auth_id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_id" Type="Int16" Nullable="false" />
-          <Property Name="token" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
-          <Property Name="issued" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="user" Relationship="fifaModel.FK_user_auth_user" FromRole="user_auth" ToRole="user" />
-        </EntityType>
         <Association Name="FK_user_auth_user">
-          <End Type="fifaModel.user" Role="user" Multiplicity="1" />
-          <End Type="fifaModel.user_auth" Role="user_auth" Multiplicity="*" />
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_auth" Type="Self.user_auth" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="user">
               <PropertyRef Name="user_id" />
@@ -687,128 +598,230 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_user_group_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_group" Type="Self.user_group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="user_group">
+              <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FifaDataSource" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="group" EntityType="Self.group" />
+          <EntitySet Name="league" EntityType="Self.league" />
+          <EntitySet Name="match" EntityType="Self.match" />
+          <EntitySet Name="match_type" EntityType="Self.match_type" />
+          <EntitySet Name="match_user" EntityType="Self.match_user" />
+          <EntitySet Name="team" EntityType="Self.team" />
+          <EntitySet Name="team_league" EntityType="Self.team_league" />
+          <EntitySet Name="team_user_group" EntityType="Self.team_user_group" />
+          <EntitySet Name="tournament" EntityType="Self.tournament" />
+          <EntitySet Name="user" EntityType="Self.user" />
+          <EntitySet Name="user_auth" EntityType="Self.user_auth" />
+          <EntitySet Name="user_group" EntityType="Self.user_group" />
+          <AssociationSet Name="FK_group_tournament" Association="Self.FK_group_tournament">
+            <End Role="tournament" EntitySet="tournament" />
+            <End Role="group" EntitySet="group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_group_group" Association="Self.FK_user_group_group">
+            <End Role="group" EntitySet="group" />
+            <End Role="user_group" EntitySet="user_group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_team_league_league" Association="Self.FK_team_league_league">
+            <End Role="league" EntitySet="league" />
+            <End Role="team_league" EntitySet="team_league" />
+          </AssociationSet>
+          <AssociationSet Name="FK_match_match_type" Association="Self.FK_match_match_type">
+            <End Role="match_type" EntitySet="match_type" />
+            <End Role="match" EntitySet="match" />
+          </AssociationSet>
+          <AssociationSet Name="FK_match_tournament" Association="Self.FK_match_tournament">
+            <End Role="tournament" EntitySet="tournament" />
+            <End Role="match" EntitySet="match" />
+          </AssociationSet>
+          <AssociationSet Name="FK_match_user_match" Association="Self.FK_match_user_match">
+            <End Role="match" EntitySet="match" />
+            <End Role="match_user" EntitySet="match_user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_match_user_user" Association="Self.FK_match_user_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="match_user" EntitySet="match_user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_team_league_team" Association="Self.FK_team_league_team">
+            <End Role="team" EntitySet="team" />
+            <End Role="team_league" EntitySet="team_league" />
+          </AssociationSet>
+          <AssociationSet Name="FK_team_user_group_team" Association="Self.FK_team_user_group_team">
+            <End Role="team" EntitySet="team" />
+            <End Role="team_user_group" EntitySet="team_user_group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_team_user_group_user_group" Association="Self.FK_team_user_group_user_group">
+            <End Role="user_group" EntitySet="user_group" />
+            <End Role="team_user_group" EntitySet="team_user_group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_auth_user" Association="Self.FK_user_auth_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_auth" EntitySet="user_auth" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_group_user" Association="Self.FK_user_group_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_group" EntitySet="user_group" />
+          </AssociationSet>
+          <FunctionImport Name="GetMatchesByTournamentId" ReturnType="Collection(FifaDataModel.GetMatchesByTournamentId_Result)">
+            <Parameter Name="tournamentId" Mode="In" Type="Byte" />
+            <Parameter Name="startingDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetMatchesByTournamentId_Result">
+          <Property Type="Int32" Name="match_id" Nullable="false" />
+          <Property Type="DateTime" Name="date_played" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="played" Nullable="false" />
+          <Property Type="Int16" Name="user_id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="team_name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="team_flag" Nullable="true" MaxLength="5" />
+          <Property Type="Byte" Name="score" Nullable="false" />
+          <Property Type="Byte" Name="yellow_cards" Nullable="true" />
+          <Property Type="Byte" Name="red_cards" Nullable="true" />
+          <Property Type="Boolean" Name="local" Nullable="false" />
+          <Property Type="Boolean" Name="walk_over" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="fifaModelStoreContainer" CdmEntityContainer="FifaDataSource">
+        <EntityContainerMapping StorageEntityContainer="FifaDataModelStoreContainer" CdmEntityContainer="FifaDataSource">
           <EntitySetMapping Name="group">
-            <EntityTypeMapping TypeName="fifaModel.group">
+            <EntityTypeMapping TypeName="FifaDataModel.group">
               <MappingFragment StoreEntitySet="group">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="tournament_id" ColumnName="tournament_id" />
                 <ScalarProperty Name="group_id" ColumnName="group_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="match">
-            <EntityTypeMapping TypeName="fifaModel.match">
-              <MappingFragment StoreEntitySet="match">
-                <ScalarProperty Name="date_played" ColumnName="date_played" />
-                <ScalarProperty Name="played" ColumnName="played" />
-                <ScalarProperty Name="match_type_id" ColumnName="match_type_id" />
                 <ScalarProperty Name="tournament_id" ColumnName="tournament_id" />
-                <ScalarProperty Name="match_id" ColumnName="match_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="match_type">
-            <EntityTypeMapping TypeName="fifaModel.match_type">
-              <MappingFragment StoreEntitySet="match_type">
                 <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="match_type_id" ColumnName="match_type_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="match_user">
-            <EntityTypeMapping TypeName="fifaModel.match_user">
-              <MappingFragment StoreEntitySet="match_user">
-                <ScalarProperty Name="red_cards" ColumnName="red_cards" />
-                <ScalarProperty Name="yellow_cards" ColumnName="yellow_cards" />
-                <ScalarProperty Name="walk_over" ColumnName="walk_over" />
-                <ScalarProperty Name="win" ColumnName="win" />
-                <ScalarProperty Name="score" ColumnName="score" />
-                <ScalarProperty Name="team_id" ColumnName="team_id" />
-                <ScalarProperty Name="local" ColumnName="local" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="match_id" ColumnName="match_id" />
-                <ScalarProperty Name="match_user_id" ColumnName="match_user_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tournament">
-            <EntityTypeMapping TypeName="fifaModel.tournament">
-              <MappingFragment StoreEntitySet="tournament">
-                <ScalarProperty Name="end_date" ColumnName="end_date" />
-                <ScalarProperty Name="start_date" ColumnName="start_date" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="tournament_id" ColumnName="tournament_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="user">
-            <EntityTypeMapping TypeName="fifaModel.user">
-              <MappingFragment StoreEntitySet="user">
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="salt" ColumnName="salt" />
-                <ScalarProperty Name="gamertag" ColumnName="gamertag" />
-                <ScalarProperty Name="psn" ColumnName="psn" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="psl_id" ColumnName="psl_id" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="user_group">
-            <EntityTypeMapping TypeName="fifaModel.user_group">
-              <MappingFragment StoreEntitySet="user_group">
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="group_id" ColumnName="group_id" />
-                <ScalarProperty Name="user_group_id" ColumnName="user_group_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="league">
-            <EntityTypeMapping TypeName="fifaModel.league">
+            <EntityTypeMapping TypeName="FifaDataModel.league">
               <MappingFragment StoreEntitySet="league">
-                <ScalarProperty Name="country_code" ColumnName="country_code" />
-                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="league_id" ColumnName="league_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="country_code" ColumnName="country_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="match">
+            <EntityTypeMapping TypeName="FifaDataModel.match">
+              <MappingFragment StoreEntitySet="match">
+                <ScalarProperty Name="match_id" ColumnName="match_id" />
+                <ScalarProperty Name="tournament_id" ColumnName="tournament_id" />
+                <ScalarProperty Name="match_type_id" ColumnName="match_type_id" />
+                <ScalarProperty Name="played" ColumnName="played" />
+                <ScalarProperty Name="date_played" ColumnName="date_played" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="match_type">
+            <EntityTypeMapping TypeName="FifaDataModel.match_type">
+              <MappingFragment StoreEntitySet="match_type">
+                <ScalarProperty Name="match_type_id" ColumnName="match_type_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="match_user">
+            <EntityTypeMapping TypeName="FifaDataModel.match_user">
+              <MappingFragment StoreEntitySet="match_user">
+                <ScalarProperty Name="match_user_id" ColumnName="match_user_id" />
+                <ScalarProperty Name="match_id" ColumnName="match_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="local" ColumnName="local" />
+                <ScalarProperty Name="team_id" ColumnName="team_id" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="yellow_cards" ColumnName="yellow_cards" />
+                <ScalarProperty Name="red_cards" ColumnName="red_cards" />
+                <ScalarProperty Name="win" ColumnName="win" />
+                <ScalarProperty Name="walk_over" ColumnName="walk_over" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="team">
-            <EntityTypeMapping TypeName="fifaModel.team">
+            <EntityTypeMapping TypeName="FifaDataModel.team">
               <MappingFragment StoreEntitySet="team">
-                <ScalarProperty Name="national_team" ColumnName="national_team" />
-                <ScalarProperty Name="flag_code" ColumnName="flag_code" />
-                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="team_id" ColumnName="team_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="flag_code" ColumnName="flag_code" />
+                <ScalarProperty Name="national_team" ColumnName="national_team" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="team_league">
-            <EntityTypeMapping TypeName="fifaModel.team_league">
+            <EntityTypeMapping TypeName="FifaDataModel.team_league">
               <MappingFragment StoreEntitySet="team_league">
-                <ScalarProperty Name="league_id" ColumnName="league_id" />
-                <ScalarProperty Name="team_id" ColumnName="team_id" />
                 <ScalarProperty Name="team_league_id" ColumnName="team_league_id" />
+                <ScalarProperty Name="team_id" ColumnName="team_id" />
+                <ScalarProperty Name="league_id" ColumnName="league_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="team_user_group">
-            <EntityTypeMapping TypeName="fifaModel.team_user_group">
+            <EntityTypeMapping TypeName="FifaDataModel.team_user_group">
               <MappingFragment StoreEntitySet="team_user_group">
-                <ScalarProperty Name="team_id" ColumnName="team_id" />
-                <ScalarProperty Name="user_group_id" ColumnName="user_group_id" />
                 <ScalarProperty Name="team_user_group_id" ColumnName="team_user_group_id" />
+                <ScalarProperty Name="user_group_id" ColumnName="user_group_id" />
+                <ScalarProperty Name="team_id" ColumnName="team_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetMatchesByTournamentId" FunctionName="fifaModel.Store.GetMatchesByTournamentId">
+          <EntitySetMapping Name="tournament">
+            <EntityTypeMapping TypeName="FifaDataModel.tournament">
+              <MappingFragment StoreEntitySet="tournament">
+                <ScalarProperty Name="tournament_id" ColumnName="tournament_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="FifaDataModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="psl_id" ColumnName="psl_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="psn" ColumnName="psn" />
+                <ScalarProperty Name="salt" ColumnName="salt" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="gamertag" ColumnName="gamertag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_auth">
+            <EntityTypeMapping TypeName="FifaDataModel.user_auth">
+              <MappingFragment StoreEntitySet="user_auth">
+                <ScalarProperty Name="user_auth_id" ColumnName="user_auth_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="token" ColumnName="token" />
+                <ScalarProperty Name="issued" ColumnName="issued" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_group">
+            <EntityTypeMapping TypeName="FifaDataModel.user_group">
+              <MappingFragment StoreEntitySet="user_group">
+                <ScalarProperty Name="user_group_id" ColumnName="user_group_id" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetMatchesByTournamentId" FunctionName="FifaDataModel.Store.GetMatchesByTournamentId">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="fifaModel.GetMatchesByTournamentId_Result">
+              <ComplexTypeMapping TypeName="FifaDataModel.GetMatchesByTournamentId_Result">
                 <ScalarProperty Name="match_id" ColumnName="match_id" />
                 <ScalarProperty Name="date_played" ColumnName="date_played" />
                 <ScalarProperty Name="played" ColumnName="played" />
@@ -817,19 +830,13 @@
                 <ScalarProperty Name="team_name" ColumnName="team_name" />
                 <ScalarProperty Name="team_flag" ColumnName="team_flag" />
                 <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="yellow_cards" ColumnName="yellow_cards" />
+                <ScalarProperty Name="red_cards" ColumnName="red_cards" />
+                <ScalarProperty Name="local" ColumnName="local" />
+                <ScalarProperty Name="walk_over" ColumnName="walk_over" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="user_auth">
-            <EntityTypeMapping TypeName="fifaModel.user_auth">
-              <MappingFragment StoreEntitySet="user_auth">
-                <ScalarProperty Name="issued" ColumnName="issued" />
-                <ScalarProperty Name="token" ColumnName="token" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="user_auth_id" ColumnName="user_auth_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -847,7 +854,7 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace FifaPSL.DAL.Repositories.Interfaces
 {
-    interface ISecurityRepository
+    public interface ISecurityRepository
     {
 
-        user getUser(string user_name);
+        user GetUser(string userName);
 
-        bool setUserPassword(int user_id, string password, string salt);
-        
+        IEnumerable<user> GetUserList(); 
+
+        bool SetUserPassword(int userId, string password, string salt);
+
+        bool SetUserToken(int userId, string token);
+
     }
 }

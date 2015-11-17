@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
@@ -47,6 +48,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -56,6 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\AuthenticationRequestModel.cs" />
+    <Compile Include="Models\AuthenticationResponseModel.cs" />
+    <Compile Include="Models\CryptoKey.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\Match.cs" />
     <Compile Include="Models\MatchDay.cs" />
@@ -64,6 +69,7 @@
     <Compile Include="Models\Tournament.cs" />
     <Compile Include="Models\TournamentGroup.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserAuth.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

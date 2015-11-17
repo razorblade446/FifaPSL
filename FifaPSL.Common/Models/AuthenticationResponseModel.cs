@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace FifaPSL.Common.Models
 {
-    public class User
+    public class AuthenticationResponseModel
     {
-        public int id { get; set; }
-        public String name { get; set; }
+
+        public User UserData { get; set; }
+        public string Token { get; set; }
+
     }
 }

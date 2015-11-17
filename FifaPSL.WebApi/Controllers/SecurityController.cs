@@ -6,6 +6,9 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Http;
+using FifaPSL.BL.Services.Implementation;
+using FifaPSL.BL.Services.Interfaces;
+using FifaPSL.Common.Models;
 
 namespace FifaPSL.WebApi.Controllers
 {
@@ -13,13 +16,28 @@ namespace FifaPSL.WebApi.Controllers
     public class SecurityController : BaseController
     {
 
+        private ISecurityService _securityService;
+
         protected static RNGCryptoServiceProvider crypProvider = new RNGCryptoServiceProvider();
+
+        public SecurityController()
+        {
+            _securityService = ServiceFactory.GetService<SecurityService>();
+        }
 
         public class AuthData
         {
             public string Token { get; set; }
             public string Password { get; set; }
             public string Salt { get; set; }
+        }
+
+        /// <summary>
+        /// Token Response Object
+        /// </summary>
+        public class TokenResponse
+        {
+            public string token { get; set; }
         }
 
 
@@ -30,23 +48,40 @@ namespace FifaPSL.WebApi.Controllers
         /// <returns></returns>
         [Route("setup")]
         [HttpPost]
-        public AuthData getTempSalt([FromBody] String password)
+        public HttpResponseMessage GetTempSalt(String password)
         {
-            byte[] mySaltHash = new byte[32];
-            byte[] myPasswordHash = Encoding.UTF8.GetBytes(password);
+            
+            return Request.CreateResponse(HttpStatusCode.OK, _securityService.GetCryptoKey(password));
 
-            SecurityController.crypProvider.GetBytes(mySaltHash);
-            SHA256Managed cryptManager = new SHA256Managed();
+        }
 
-            byte[] finalHash = cryptManager.ComputeHash(mySaltHash.Concat(myPasswordHash).ToArray(), 0 ,mySaltHash.Length + myPasswordHash.Length);
 
-            AuthData response = new AuthData();
+        /// <summary>
+        /// Get Auth token for restricted services
+        /// </summary>
+        /// <param name="authModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("token")]
+        public HttpResponseMessage GetToken(AuthenticationRequestModel authModel)
+        {
+            if (ModelState.IsValid)
+            {
 
-            response.Salt = BitConverter.ToString(mySaltHash).Replace("-", "");
-            response.Password = BitConverter.ToString(myPasswordHash).Replace("-", "");
+                string token = _securityService.Login(authModel);
 
-            return response;
+                if (token != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, new TokenResponse {token = token});
+                }
 
+                return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "User name or password is not valid");
+
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Credentials provided are invalid");
+            }
         }
 
     }

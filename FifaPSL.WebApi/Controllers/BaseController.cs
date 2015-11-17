@@ -11,6 +11,7 @@ using FifaPSL.BL.Services.Implementation;
 namespace FifaPSL.WebApi.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    
     public class BaseController: ApiController
     {
     }
